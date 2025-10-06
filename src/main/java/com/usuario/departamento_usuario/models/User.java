@@ -27,13 +27,13 @@ public class User implements UserDetails {
     @Column(name = "id")
     private UUID id;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 60)
     private String name;
 
-    @Column(nullable = false, length = 40, unique = true)
+    @Column(nullable = false, length = 60, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 60)
     private String password;
 
     @CreationTimestamp
@@ -44,7 +44,7 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @Column
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     @ManyToOne
