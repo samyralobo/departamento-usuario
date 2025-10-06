@@ -21,7 +21,7 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private UUID id;
+    private UUID departmentId;
 
     @Column(nullable = false, length = 40)
     private String departmentName;

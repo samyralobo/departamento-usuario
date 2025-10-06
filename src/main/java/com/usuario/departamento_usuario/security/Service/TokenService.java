@@ -1,4 +1,4 @@
-package com.usuario.departamento_usuario.security;
+package com.usuario.departamento_usuario.security.Service;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

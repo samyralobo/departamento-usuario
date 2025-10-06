@@ -13,6 +13,7 @@ import com.usuario.departamento_usuario.repositories.DepartmentRepository;
 import com.usuario.departamento_usuario.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public class UserService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     public CreateUserDTO createUser(CreateUserDTO dto, UUID departmentId){
         //if the email is present, the message is shown
@@ -39,7 +43,7 @@ public class UserService {
         User entity = new User();
         entity.setName(dto.name());
         entity.setEmail(dto.email());
-        entity.setPassword(dto.password());
+        entity.setPassword(passwordEncoder.encode(dto.password()));
         entity.setDepartment(department);
 
         userRepository.save(entity);
@@ -53,10 +57,10 @@ public class UserService {
                 user -> new ListUsersDTO(
                         user.getId(), user.getName(),
                         user.getEmail(), user.getCreatedAt(),
-                        user.getUpdatedAt(), user.getDepartment().getId(),
+                        user.getUpdatedAt(), user.getDepartment().getDepartmentId(),
                         user.getDepartment().getDepartmentName(),
                         user.getDepartment().getManagerName())).
-                collect(Collectors.toList());
+                toList();
     }
 
     public GetUserByIdDTO getUserById(UUID id){
@@ -66,7 +70,7 @@ public class UserService {
         return new GetUserByIdDTO(userEntity.getName(),
                 userEntity.getEmail(),
                 userEntity.getCreatedAt(), userEntity.getUpdatedAt(),
-                userEntity.getDepartment().getId(), userEntity.getDepartment().getDepartmentName(),
+                userEntity.getDepartment().getDepartmentId(), userEntity.getDepartment().getDepartmentName(),
                 userEntity.getDepartment().getManagerName());
     }
 

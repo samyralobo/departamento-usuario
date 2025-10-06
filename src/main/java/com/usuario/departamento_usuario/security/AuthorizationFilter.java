@@ -1,6 +1,7 @@
 package com.usuario.departamento_usuario.security;
 
 import com.usuario.departamento_usuario.repositories.UserRepository;
+import com.usuario.departamento_usuario.security.Service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,18 +30,23 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        String token = this.recoverToken(request);
+        //request.getServletPath() gets the endpoint that the requisition is calling for
+        if(!request.getServletPath().equals("/auth/login") && !request.getServletPath().equals("/auth/register")) {
 
-        if (token != null){
-            String email = tokenService.validateToken(token);
-            UserDetails user = userRepository.findByEmail(email).orElse(null);
+            String token = this.recoverToken(request);
 
-            if(user != null){
-                var authentication = new UsernamePasswordAuthenticationToken
-                        (user, null, user.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (token != null) {
+                String email = tokenService.validateToken(token);
+                UserDetails user = userRepository.findByEmail(email).orElse(null);
+
+                if (user != null) {
+                    var authentication = new UsernamePasswordAuthenticationToken
+                            (user, null, user.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
         }
+
         filterChain.doFilter(request, response);
     }
 

@@ -43,7 +43,7 @@ public class DepartmentService {
     public Stream<ListDepartmentsDTO> listDepartments(){
         List<Department> departmentEntity = departmentRepository.findAll();
         return departmentEntity.stream().map(department-> new ListDepartmentsDTO(
-                department.getId(), department.getDepartmentName(), department.getManagerName(),
+                department.getDepartmentId(), department.getDepartmentName(), department.getManagerName(),
                 department.getCreatedAt(), department.getUpdatedAt()));
     }
 

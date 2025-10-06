@@ -27,13 +27,13 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy
                         (SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/department").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/department").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/department").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/department").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/user").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/user").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/user").hasRole("ADMIN")
                         .anyRequest().authenticated())

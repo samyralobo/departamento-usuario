@@ -1,6 +1,5 @@
-package com.usuario.departamento_usuario.security;
+package com.usuario.departamento_usuario.security.Service;
 
-import com.usuario.departamento_usuario.models.User;
 import com.usuario.departamento_usuario.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
