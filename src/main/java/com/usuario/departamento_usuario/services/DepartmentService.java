@@ -40,11 +40,11 @@ public class DepartmentService {
         return dto;
     }
 
-    public Stream<ListDepartmentsDTO> listDepartments(){
+    public List<ListDepartmentsDTO> listDepartments(){
         List<Department> departmentEntity = departmentRepository.findAll();
         return departmentEntity.stream().map(department-> new ListDepartmentsDTO(
                 department.getDepartmentId(), department.getDepartmentName(), department.getManagerName(),
-                department.getCreatedAt(), department.getUpdatedAt()));
+                department.getCreatedAt(), department.getUpdatedAt())).toList();
     }
 
     public List<UserDepartmentDTO> listUsersInDepartmentsById(UUID id){
@@ -55,7 +55,7 @@ public class DepartmentService {
 
         return users.stream().map(user-> new UserDepartmentDTO(
                 user.getId(), user.getName(), user.getEmail(), user.getCreatedAt(),
-                user.getUpdatedAt())).collect(Collectors.toList());
+                user.getUpdatedAt())).toList();
     }
 
     @Transactional

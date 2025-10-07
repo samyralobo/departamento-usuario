@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/department")
@@ -30,8 +29,8 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public ResponseEntity<Stream<?>> listDepartments(){
-        Stream<ListDepartmentsDTO> departments = departmentService.listDepartments();
+    public ResponseEntity<List<?>> listDepartments(){
+        List<ListDepartmentsDTO> departments = departmentService.listDepartments();
         return ResponseEntity.ok().body(departments);
     }
 
