@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-departamento-usuario/.env
-departamento-usuario/src/resources
+.env
+src/resources
